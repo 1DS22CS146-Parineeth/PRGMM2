@@ -2,31 +2,251 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to Tomcat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomcat Server Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding-top: 100px;
+        :root {
+            --primary: #1888bb;
+            --secondary: #f8b739;
+            --dark: #1a2c38;
+            --light: #f5f7fa;
         }
-        h1 {
-            color: #333;
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
-        .container {
-            background: white;
-            padding: 40px;
-            margin: auto;
-            width: 50%;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-running {
+            background-color: #4ade80;
+            box-shadow: 0 0 10px #4ade80;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Welcome to Tomcat Application Home Page</h1>
-        <p>Your Tomcat server is running successfully.</p>
-    </div>
+<body class="bg-gray-50">
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-6 md:mb-0">
+                    <div class="mr-4">
+                        <img src="https://placehold.co/60x60" alt="Tomcat server logo showing a stylized cat silhouette with server gears in orange and blue" class="rounded-full" />
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold">Tomcat Server Dashboard</h1>
+                        <p class="flex items-center mt-1">
+                            <span class="status-indicator status-running"></span>
+                            <span>Server is running</span>
+                        </p>
+                    </div>
+                </div>
+                <nav class="flex space-x-4">
+                    <a href="/manager/html" class="px-4 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition">Manager</a>
+                    <a href="/host-manager/html" class="px-4 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition">Host Manager</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Server Info Card -->
+            <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-server text-2xl text-blue-500 mr-3"></i>
+                    <h2 class="text-xl font-semibold">Server Information</h2>
+                </div>
+                <div class="space-y-3">
+                    <p><span class="font-medium">Version:</span> Apache Tomcat/10.0</p>
+                    <p><span class="font-medium">JVM Version:</span> 1.8.0_352</p>
+                    <p><span class="font-medium">OS Name:</span> Linux</p>
+                    <p><span class="font-medium">Architecture:</span> x86_64</p>
+                </div>
+            </div>
+
+            <!-- Quick Links Card -->
+            <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-link text-2xl text-orange-500 mr-3"></i>
+                    <h2 class="text-xl font-semibold">Quick Links</h2>
+                </div>
+                <div class="space-y-3">
+                    <a href="/docs" class="block p-2 hover:bg-gray-100 rounded transition flex items-center">
+                        <i class="fas fa-book mr-2 text-blue-400"></i>
+                        Documentation
+                    </a>
+                    <a href="/examples" class="block p-2 hover:bg-gray-100 rounded transition flex items-center">
+                        <i class="fas fa-laptop-code mr-2 text-green-400"></i>
+                        Examples
+                    </a>
+                    <a href="https://tomcat.apache.org" target="_blank" class="block p-2 hover:bg-gray-100 rounded transition flex items-center">
+                        <i class="fas fa-globe mr-2 text-purple-400"></i>
+                        Official Website
+                    </a>
+                </div>
+            </div>
+
+            <!-- System Status Card -->
+            <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-heartbeat text-2xl text-red-500 mr-3"></i>
+                    <h2 class="text-xl font-semibold">System Status</h2>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Memory Usage</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>CPU Load</span>
+                            <span>42%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-orange-500 h-2.5 rounded-full" style="width: 42%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Active Sessions</span>
+                            <span>18</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 30%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="mt-12 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="px-6 py-4 border-b">
+                <div class="flex items-center">
+                    <i class="fas fa-history text-2xl text-purple-500 mr-3"></i>
+                    <h2 class="text-xl font-semibold">Recent Activity</h2>
+                </div>
+            </div>
+            <div class="divide-y">
+                <div class="p-6 hover:bg-gray-50 transition flex items-start">
+                    <div class="bg-blue-100 p-2 rounded-full mr-4">
+                        <i class="fas fa-code text-blue-500"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium">Application deployed</p>
+                        <p class="text-gray-500 text-sm">myapp.war was successfully deployed</p>
+                        <p class="text-gray-400 text-xs mt-1">10 minutes ago</p>
+                    </div>
+                </div>
+                <div class="p-6 hover:bg-gray-50 transition flex items-start">
+                    <div class="bg-green-100 p-2 rounded-full mr-4">
+                        <i class="fas fa-server text-green-500"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium">Server restarted</p>
+                        <p class="text-gray-500 text-sm">Tomcat service was restarted</p>
+                        <p class="text-gray-400 text-xs mt-1">2 hours ago</p>
+                    </div>
+                </div>
+                <div class="p-6 hover:bg-gray-50 transition flex items-start">
+                    <div class="bg-yellow-100 p-2 rounded-full mr-4">
+                        <i class="fas fa-exclamation-triangle text-yellow-500"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium">Warning detected</p>
+                        <p class="text-gray-500 text-sm">Connection pool nearing capacity</p>
+                        <p class="text-gray-400 text-xs mt-1">5 hours ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <p class="text-lg font-medium">Apache Tomcat Server</p>
+                    <p class="text-sm opacity-80">Version 10.0.0</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://tomcat.apache.org/security.html" class="hover:underline">Security</a>
+                    <a href="https://tomcat.apache.org/contact.html" class="hover:underline">Contact</a>
+                    <a href="https://tomcat.apache.org/legal.html" class="hover:underline">Legal</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-white border-opacity-20 text-center text-sm opacity-70">
+                <p>Copyright © 1999-2023 The Apache Software Foundation. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update the status indicators with real data (placeholder)
+        function updateStatus() {
+            fetch('/api/status')
+                .then(response => response.json())
+                .then(data => {
+                    // In a real implementation, update the UI with actual server data
+                    updateMemoryUsage(data.memory || 65);
+                    updateCpuUsage(data.cpu || 42);
+                    updateSessions(data.sessions || 18);
+                })
+                .catch(() => {
+                    // Fallback values if API fails
+                    updateMemoryUsage(65);
+                    updateCpuUsage(42);
+                    updateSessions(18);
+                });
+        }
+
+        function updateMemoryUsage(percent) {
+            document.querySelectorAll('.memory-usage').forEach(el => {
+                el.textContent = percent + '%';
+                el.nextElementSibling.style.width = percent + '%';
+            });
+        }
+
+        function updateCpuUsage(percent) {
+            document.querySelectorAll('.cpu-usage').forEach(el => {
+                el.textContent = percent + '%';
+                el.nextElementSibling.style.width = percent + '%';
+            });
+        }
+
+        function updateSessions(count) {
+            document.querySelectorAll('.sessions-count').forEach(el => {
+                el.textContent = count;
+                const percent = Math.min(100, (count / 60) * 100);
+                el.nextElementSibling.style.width = percent + '%';
+            });
+        }
+
+        // Update status every 10 seconds
+        updateStatus();
+        setInterval(updateStatus, 10000);
+    </script>
 </body>
 </html>
